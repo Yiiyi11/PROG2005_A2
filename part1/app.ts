@@ -21,8 +21,23 @@ app.innerHTML = `
 </div>
 <div id="list"></div>
 `;
+function renderList(items = service.getAllItems()) {
+    const list = document.getElementById('list')!;
+    if (items.length === 0) {
+        list.innerHTML = '<p>No items</p>';
+        return;
+    }
+    list.innerHTML = items.map(i => `
+        <div class="card">
+            <h4>${i.itemName} (${i.itemId})</h4>
+            <p>Category: ${i.category}</p>
+            <p>Qty: ${i.quantity} | Price: $${i.price}</p>
+            <p>Stock: ${i.stockStatus}</p>
+            <p>Popular: ${i.isPopular ? 'Yes' : 'No'}</p>
+        </div>
+    `).join('');
+}
 
-// 全局 add 函数
 (window as any).add = () => {
     const item = {
         itemId: (document.getElementById('id') as HTMLInputElement).value,
