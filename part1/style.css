@@ -1,0 +1,119 @@
+/* 全局美化 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #f0f4f8;
+    padding: 30px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: #2d3748;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+/* 表单区域 */
+#app {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-box {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+.form-box h3 {
+    margin-bottom: 14px;
+    color: #2b6cb0;
+    font-size: 18px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 6px 0;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+button {
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 6px;
+    margin-top: 6px;
+}
+
+button:hover {
+    background-color: #2b6cb0;
+}
+
+/* 搜索区域 */
+.search-box {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* 卡片列表 */
+.list-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.card {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    border-left: 4px solid #3182ce;
+}
+
+.card h4 {
+    color: #2d3748;
+    margin-bottom: 8px;
+}
+
+.card p {
+    color: #4a5568;
+    font-size: 13px;
+    margin: 3px 0;
+}
+
+/* 提示消息 */
+#message {
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.success {
+    background-color: #c6f6d5;
+    color: #22543d;
+}
+
+.error {
+    background-color: #fed7d7;
+    color: #742a2a;
+}
