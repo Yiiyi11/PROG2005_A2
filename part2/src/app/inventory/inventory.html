@@ -1,1 +1,55 @@
-<p>inventory works!</p>
+<div class="container">
+  <h1>Inventory Management System (Angular)</h1>
+
+  <div class="form-card">
+    <h2>Add New Item</h2>
+    <div class="form-row">
+      <input [(ngModel)]="newItem.itemId" placeholder="Item ID" required>
+      <input [(ngModel)]="newItem.itemName" placeholder="Item Name" required>
+      <select [(ngModel)]="newItem.category">
+        <option>Electronics</option>
+        <option>Furniture</option>
+        <option>Clothing</option>
+        <option>Tools</option>
+        <option>Miscellaneous</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <input type="number" [(ngModel)]="newItem.quantity" placeholder="Quantity">
+      <input type="number" [(ngModel)]="newItem.price" placeholder="Price">
+      <input [(ngModel)]="newItem.supplierName" placeholder="Supplier Name">
+    </div>
+    <div class="form-row">
+      <select [(ngModel)]="newItem.stockStatus">
+        <option>In Stock</option>
+        <option>Low Stock</option>
+        <option>Out of Stock</option>
+      </select>
+      <label>
+        <input type="checkbox" [(ngModel)]="newItem.isPopular"> Mark as Popular
+      </label>
+      <input [(ngModel)]="newItem.comment" placeholder="Comment (optional)">
+    </div>
+    <button class="add-btn" (click)="addItem()">Add Item</button>
+  </div>
+
+  <div class="search-bar">
+    <input [(ngModel)]="searchKeyword" (input)="onSearch()" placeholder="Search by item name">
+    <button (click)="loadAllItems()">Show All</button>
+    <button (click)="showPopularItems()">Show Popular</button>
+  </div>
+
+  <div class="item-list">
+    <div class="item-card" *ngFor="let item of items">
+      <h3>{{ item.itemName }}</h3>
+      <p><strong>ID:</strong> {{ item.itemId }}</p>
+      <p><strong>Category:</strong> {{ item.category }}</p>
+      <p><strong>Quantity:</strong> {{ item.quantity }} | <strong>Price:</strong> ${{ item.price.toFixed(2) }}</p>
+      <p><strong>Supplier:</strong> {{ item.supplierName }}</p>
+      <p><strong>Stock Status:</strong> {{ item.stockStatus }}</p>
+      <p><strong>Popular:</strong> {{ item.isPopular ? '✅ Yes' : '❌ No' }}</p>
+      <p *ngIf="item.comment"><strong>Comment:</strong> {{ item.comment }}</p>
+      <button class="delete-btn" (click)="deleteItem(item.itemName)">Delete</button>
+    </div>
+  </div>
+</div>
