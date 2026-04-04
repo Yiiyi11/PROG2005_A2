@@ -20,6 +20,28 @@ h1 {
     font-size: 28px;
 }
 
+/* 消息提示样式增强 */
+#message {
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.success {
+    background-color: #c6f6d5;
+    color: #22543d;
+    border: 1px solid #9ae6b4;
+}
+
+.error {
+    background-color: #fed7d7;
+    color: #742a2a;
+    border: 1px solid #fc8181;
+}
+
 /* 表单区域 */
 #app {
     display: flex;
@@ -27,14 +49,14 @@ h1 {
     gap: 20px;
 }
 
-.form-box {
+.form-container {
     background: white;
     padding: 22px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.06);
 }
 
-.form-box h3 {
+.form-container h3 {
     margin-bottom: 14px;
     color: #2b6cb0;
     font-size: 18px;
@@ -42,23 +64,37 @@ h1 {
 
 input, select {
     width: 100%;
-    padding: 10px 12px;
-    margin: 6px 0;
+    padding: 12px 14px;
+    margin: 8px 0;
     border: 1px solid #cbd5e0;
     border-radius: 6px;
     font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+/* 聚焦状态样式 */
+input:focus, select:focus {
+    outline: none;
+    border-color: #3182ce;
+    box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.2);
+}
+
+/* 空值选择框提示 */
+select[value=""] {
+    color: #a0aec0;
 }
 
 button {
     background-color: #3182ce;
     color: white;
     border: none;
-    padding: 10px 16px;
+    padding: 12px 18px;
     border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
-    margin-right: 6px;
-    margin-top: 6px;
+    margin-right: 8px;
+    margin-top: 8px;
+    transition: background-color 0.2s ease;
 }
 
 button:hover {
@@ -66,7 +102,7 @@ button:hover {
 }
 
 /* 搜索区域 */
-.search-box {
+.search-container {
     background: white;
     padding: 22px;
     border-radius: 12px;
@@ -74,10 +110,11 @@ button:hover {
 }
 
 /* 卡片列表 */
-.list-box {
+#list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 16px;
+    margin-top: 10px;
 }
 
 .card {
@@ -86,34 +123,29 @@ button:hover {
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     border-left: 4px solid #3182ce;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
 }
 
 .card h4 {
     color: #2d3748;
     margin-bottom: 8px;
+    font-size: 16px;
 }
 
 .card p {
     color: #4a5568;
     font-size: 13px;
-    margin: 3px 0;
+    margin: 4px 0;
 }
 
-/* 提示消息 */
-#message {
-    padding: 12px;
-    border-radius: 6px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 16px;
-}
-
-.success {
-    background-color: #c6f6d5;
-    color: #22543d;
-}
-
-.error {
-    background-color: #fed7d7;
-    color: #742a2a;
+/* 按钮行样式 */
+.btn-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
 }

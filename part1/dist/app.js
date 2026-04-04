@@ -8,36 +8,38 @@ function render() {
     const app = document.getElementById('app');
     app.innerHTML = `
         <div class="form-container">
-            <h3>Add New Item</h3>
-            <input id="itemId" placeholder="Item ID" />
+            <h3>Add / Edit / Delete Item</h3>
+            <input id="itemId" placeholder="Item ID (e.g. ITEM001)" />
             <input id="itemName" placeholder="Item Name" />
             <select id="category">
+                <option value="">-- Select Category --</option>
                 <option>Electronics</option>
                 <option>Furniture</option>
                 <option>Clothing</option>
                 <option>Tools</option>
                 <option>Miscellaneous</option>
             </select>
-            <input id="quantity" type="number" placeholder="Quantity" />
-            <input id="price" type="number" placeholder="Price" />
+            <input id="quantity" type="number" placeholder="Quantity" min="1" />
+            <input id="price" type="number" placeholder="Price" min="0.01" step="0.01" />
             <input id="supplierName" placeholder="Supplier Name" />
             <select id="stockStatus">
+                <option value="">-- Select Stock Status --</option>
                 <option>In Stock</option>
                 <option>Low Stock</option>
                 <option>Out of Stock</option>
             </select>
-            <label><input id="isPopular" type="checkbox" /> Popular</label>
+            <label><input id="isPopular" type="checkbox" /> Popular Item</label>
             <input id="comment" placeholder="Comment (optional)" />
             <div class="btn-row">
-                <button onclick="addItem()">Add</button>
-                <button onclick="updateItem()">Update</button>
-                <button onclick="deleteItem()">Delete</button>
+                <button onclick="addItem()">Add Item</button>
+                <button onclick="updateItem()">Update Item</button>
+                <button onclick="deleteItem()">Delete Item</button>
             </div>
         </div>
 
         <div class="search-container">
-            <h3>Search</h3>
-            <input id="search" placeholder="Search by name" oninput="search()" />
+            <h3>Search Items</h3>
+            <input id="search" placeholder="Search by name..." oninput="search()" />
             <button onclick="refreshList()">Show All</button>
             <button onclick="showPopular()">Show Popular</button>
         </div>
@@ -49,7 +51,7 @@ function refreshList(items) {
     const data = items || inventoryService.getAllItems();
     const list = document.getElementById('list');
     if (data.length === 0) {
-        list.innerHTML = '<p>No items</p>';
+        list.innerHTML = '<p>No items in inventory</p>';
         return;
     }
     list.innerHTML = data.map(i => `
@@ -65,16 +67,50 @@ function refreshList(items) {
         </div>
     `).join('');
 }
-// Global functions
+window.refreshList = refreshList;
 window.addItem = () => {
+    const itemIdEl = document.getElementById('itemId');
+    const itemNameEl = document.getElementById('itemName');
+    const categoryEl = document.getElementById('category');
+    const quantityEl = document.getElementById('quantity');
+    const priceEl = document.getElementById('price');
+    const supplierNameEl = document.getElementById('supplierName');
+    const stockStatusEl = document.getElementById('stockStatus');
+    const requiredFields = [
+        { el: itemIdEl, name: 'Item ID' },
+        { el: itemNameEl, name: 'Item Name' },
+        { el: categoryEl, name: 'Category' },
+        { el: quantityEl, name: 'Quantity' },
+        { el: priceEl, name: 'Price' },
+        { el: supplierNameEl, name: 'Supplier Name' },
+        { el: stockStatusEl, name: 'Stock Status' }
+    ];
+    const empty = requiredFields.find(f => !f.el.value.trim());
+    if (empty) {
+        showMessage(`Error: ${empty.name} cannot be empty`, 'error');
+        empty.el.focus();
+        return;
+    }
+    const qty = Number(quantityEl.value);
+    const price = Number(priceEl.value);
+    if (qty <= 0 || isNaN(qty)) {
+        showMessage('Error: Quantity must be > 0', 'error');
+        quantityEl.focus();
+        return;
+    }
+    if (price <= 0 || isNaN(price)) {
+        showMessage('Error: Price must be > 0', 'error');
+        priceEl.focus();
+        return;
+    }
     const item = {
-        itemId: document.getElementById('itemId').value.trim(),
-        itemName: document.getElementById('itemName').value.trim(),
-        category: document.getElementById('category').value,
-        quantity: Number(document.getElementById('quantity').value),
-        price: Number(document.getElementById('price').value),
-        supplierName: document.getElementById('supplierName').value.trim(),
-        stockStatus: document.getElementById('stockStatus').value,
+        itemId: itemIdEl.value.trim(),
+        itemName: itemNameEl.value.trim(),
+        category: categoryEl.value, // 👈 加类型
+        quantity: qty,
+        price: price,
+        supplierName: supplierNameEl.value.trim(),
+        stockStatus: stockStatusEl.value, // 👈 加类型
         isPopular: document.getElementById('isPopular').checked,
         comment: document.getElementById('comment').value.trim() || undefined
     };
@@ -83,14 +119,16 @@ window.addItem = () => {
 };
 window.updateItem = () => {
     const name = document.getElementById('itemName').value.trim();
-    if (!name)
-        return alert('Enter item name');
+    if (!name) {
+        showMessage('Error: Enter item name to update', 'error');
+        return;
+    }
     const data = {
-        category: document.getElementById('category').value,
+        category: document.getElementById('category').value, // 👈 加类型
         quantity: Number(document.getElementById('quantity').value),
         price: Number(document.getElementById('price').value),
         supplierName: document.getElementById('supplierName').value.trim(),
-        stockStatus: document.getElementById('stockStatus').value,
+        stockStatus: document.getElementById('stockStatus').value, // 👈 加类型
         isPopular: document.getElementById('isPopular').checked,
         comment: document.getElementById('comment').value.trim() || undefined
     };
@@ -99,8 +137,12 @@ window.updateItem = () => {
 };
 window.deleteItem = () => {
     const name = document.getElementById('itemName').value.trim();
-    if (!name)
-        return alert('Enter item name');
+    if (!name) {
+        showMessage('Error: Enter item name to delete', 'error');
+        return;
+    }
+    if (!confirm(`Confirm delete: ${name}?`))
+        return;
     inventoryService.deleteItemByName(name);
     refreshList();
 };
@@ -111,4 +153,10 @@ window.search = () => {
 window.showPopular = () => {
     refreshList(inventoryService.getPopularItems());
 };
+function showMessage(text, type) {
+    const el = document.getElementById('message');
+    el.textContent = text;
+    el.className = type;
+    setTimeout(() => el.textContent = '', 3500);
+}
 init();
