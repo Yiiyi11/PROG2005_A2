@@ -1,0 +1,17 @@
+.list {
+  margin-top: 2rem;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f1f5f9;
+  border-radius: 8px;
+  margin: 0.8rem 0;
+}
+
+button {
+  padding: 0.6rem 1rem;
+}

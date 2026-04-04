@@ -1,0 +1,17 @@
+<div class="card">
+  <h2>🔍 Search & Filter</h2>
+  <p class="subtitle">Find items instantly</p>
+
+  <input [(ngModel)]="keyword" placeholder="Type to search..." />
+
+  <button (click)="showPopular = !showPopular" class="toggle">
+    {{ showPopular ? 'Show All Items' : 'Show Popular Only' }}
+  </button>
+
+  <div class="results">
+    <div class="result" *ngFor="let item of filteredItems">
+      {{ item.name }}
+      <span *ngIf="item.popular" class="badge">Popular</span>
+    </div>
+  </div>
+</div>

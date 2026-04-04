@@ -1,1 +1,10 @@
-<app-inventory></app-inventory>
+<div class="navbar">
+  <a routerLink="/">Home</a>
+  <a routerLink="/inventory">Inventory</a>
+  <a routerLink="/search">Search</a>
+  <a routerLink="/privacy">Privacy</a>
+  <a routerLink="/help">Help</a>
+</div>
+<div class="container">
+  <router-outlet></router-outlet> <!-- 必须存在 -->
+</div>

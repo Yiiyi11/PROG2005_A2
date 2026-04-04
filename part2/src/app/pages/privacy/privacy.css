@@ -1,0 +1,28 @@
+/* privacy.component.css - HD Level Style */
+.section {
+  margin: 1.6rem 0;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section h3 {
+  color: #2563eb;
+  margin-bottom: 0.6rem;
+  font-size: 1.15rem;
+}
+
+.section p {
+  color: #334155;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+}

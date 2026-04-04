@@ -1,0 +1,23 @@
+<div class="card">
+  <h2>📦 Inventory Management</h2>
+  <p class="subtitle">Add, delete, and manage inventory items</p>
+
+  <label>Item Name</label>
+  <input [(ngModel)]="name" placeholder="Enter item name" />
+
+  <label>Quantity</label>
+  <input type="number" [(ngModel)]="qty" min="1" placeholder="Min 1" />
+
+  <button (click)="addItem()">Add Item</button>
+
+  <div class="list" *ngIf="items.length">
+    <h3>Items ({{ items.length }})</h3>
+    <div class="item-row" *ngFor="let item of items">
+      <div>
+        <strong>{{ item.name }}</strong>
+        <div>Qty: {{ item.qty }} | {{ item.status }}</div>
+      </div>
+      <button class="danger" (click)="deleteItem(item)">Delete</button>
+    </div>
+  </div>
+</div>
