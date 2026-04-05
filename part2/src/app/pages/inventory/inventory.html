@@ -1,23 +1,41 @@
 <div class="card">
   <h2>📦 Inventory Management</h2>
-  <p class="subtitle">Add, delete, and manage inventory items</p>
+  <p class="subtitle">Add & manage inventory items with validation</p>
 
-  <label>Item Name</label>
-  <input [(ngModel)]="name" placeholder="Enter item name" />
+  <div class="msg" *ngIf="message" [class.err]="isError" [class.success]="!isError">
+    {{ message }}
+  </div>
 
-  <label>Quantity</label>
-  <input type="number" [(ngModel)]="qty" min="1" placeholder="Min 1" />
+  <div class="form-group">
+    <label>Item ID (Sequence Number)</label>
+    <input [(ngModel)]="id" type="number" placeholder="Enter item ID" min="1" />
+  </div>
 
-  <button (click)="addItem()">Add Item</button>
+  <div class="form-group">
+    <label>Item Name</label>
+    <input [(ngModel)]="name" placeholder="Enter item name" />
+  </div>
 
-  <div class="list" *ngIf="items.length">
-    <h3>Items ({{ items.length }})</h3>
-    <div class="item-row" *ngFor="let item of items">
+  <div class="form-group">
+    <label>Stock Quantity</label>
+    <input [(ngModel)]="qty" type="number" placeholder="Enter stock quantity" min="0" />
+  </div>
+
+  <label class="check">
+    <input type="checkbox" [(ngModel)]="popular" /> Mark as Popular
+  </label>
+
+  <button (click)="add()">Add Item</button>
+
+  <div class="list" *ngIf="itemService.items.length">
+    <h3>Item List ({{ itemService.items.length }})</h3>
+    <div class="item" *ngFor="let item of itemService.items">
       <div>
-        <strong>{{ item.name }}</strong>
-        <div>Qty: {{ item.qty }} | {{ item.status }}</div>
+        <strong>ID: {{ item.id }}</strong> | {{ item.name }} <br>
+        Qty: {{ item.qty }} | {{ item.status }}
+        <span *ngIf="item.popular" class="badge">Popular</span>
       </div>
-      <button class="danger" (click)="deleteItem(item)">Delete</button>
+      <button class="del" (click)="delete(item.id)">Delete</button>
     </div>
   </div>
 </div>

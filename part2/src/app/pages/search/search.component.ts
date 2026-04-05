@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ItemService } from '../../item.service';
 
 @Component({
   selector: 'app-search',
@@ -11,18 +12,15 @@ import { FormsModule } from '@angular/forms';
 })
 export class SearchComponent {
   keyword = '';
-  showPopular = false;
+  showPopularOnly = false;
 
-  items = [
-    { name: 'Laptop', popular: true },
-    { name: 'Keyboard', popular: false },
-    { name: 'Monitor', popular: true },
-    { name: 'Mouse', popular: false },
-    { name: 'Headphones', popular: true }
-  ];
+  constructor(public itemService: ItemService) {}
 
   get filteredItems() {
-    let list = this.showPopular ? this.items.filter(i => i.popular) : this.items;
+    let list = this.showPopularOnly
+      ? this.itemService.items.filter(i => i.popular)
+      : this.itemService.items;
+
     return list.filter(i =>
       i.name.toLowerCase().includes(this.keyword.toLowerCase())
     );

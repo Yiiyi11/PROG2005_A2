@@ -1,17 +1,13 @@
-.list {
-  margin-top: 2rem;
-}
+.subtitle { color: #64748b; margin-bottom: 1rem; }
+.check { display: inline-block; margin: 0.6rem 0; cursor: pointer; }
 
-.item-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: #f1f5f9;
-  border-radius: 8px;
-  margin: 0.8rem 0;
-}
+.msg { padding: 0.8rem 1rem; border-radius: 6px; margin-bottom: 1rem; }
+.success { background: #dcfce7; color: #166534; }
+.err { background: #fee2e2; color: #dc2626; }
 
-button {
-  padding: 0.6rem 1rem;
+.item {
+  display: flex; justify-content: space-between; align-items: center;
+  background: #f8fafc; padding: 1rem; border-radius: 8px; margin: 0.6rem 0;
 }
+.del { background: #dc2626; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; }
+.badge { background: #2563eb; color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 10px; margin-left: 0.4rem; }

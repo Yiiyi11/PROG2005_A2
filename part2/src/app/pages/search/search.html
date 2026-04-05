@@ -1,17 +1,15 @@
 <div class="card">
   <h2>🔍 Search & Filter</h2>
-  <p class="subtitle">Find items instantly</p>
+  <p class="subtitle">Real-time search across inventory</p>
 
-  <input [(ngModel)]="keyword" placeholder="Type to search..." />
-
-  <button (click)="showPopular = !showPopular" class="toggle">
-    {{ showPopular ? 'Show All Items' : 'Show Popular Only' }}
-  </button>
+  <input [(ngModel)]="keyword" placeholder="Search items..." />
+  <label class="check"><input type="checkbox" [(ngModel)]="showPopularOnly" /> Show Popular Only</label>
 
   <div class="results">
     <div class="result" *ngFor="let item of filteredItems">
-      {{ item.name }}
+      {{ item.name }} | {{ item.status }}
       <span *ngIf="item.popular" class="badge">Popular</span>
     </div>
+    <p *ngIf="filteredItems.length === 0 && keyword">No results found</p>
   </div>
 </div>

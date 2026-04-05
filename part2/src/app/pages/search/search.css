@@ -1,24 +1,4 @@
-.result {
-  padding: 1rem;
-  background: #f1f5f9;
-  margin: 0.8rem 0;
-  border-radius: 8px;
-}
-
-.badge {
-  background: #2563eb;
-  color: white;
-  font-size: 0.7rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 10px;
-  margin-left: 0.8rem;
-}
-
-.toggle {
-  margin-bottom: 1.5rem;
-  background: #475569;
-}
-
-.toggle:hover {
-  background: #334155;
-}
+.subtitle { color: #64748b; margin-bottom: 1rem; }
+.check { display: inline-block; margin: 0.6rem 0; cursor: pointer; }
+.result { background: #f8fafc; padding: 1rem; border-radius: 8px; margin: 0.6rem 0; }
+.badge { background: #2563eb; color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 10px; margin-left: 0.4rem; }

@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Item {
-  id: number;
-  name: string;
-  qty: number;
-  status: 'In Stock' | 'Low Stock' | 'Out of Stock';
-}
+import { ItemService } from '../../item.service';
 
 @Component({
   selector: 'app-inventory',
@@ -17,30 +11,49 @@ interface Item {
   styleUrls: ['./inventory.css']
 })
 export class InventoryComponent {
+  id: number | null = null;
   name = '';
-  qty = 1;
-  items: Item[] = [
-    { id: 1, name: 'Laptop', qty: 10, status: 'In Stock' },
-    { id: 2, name: 'Monitor', qty: 5, status: 'Low Stock' },
-    { id: 3, name: 'Mouse', qty: 0, status: 'Out of Stock' }
-  ];
+  qty: number | null = null;
+  popular = false;
+  message = '';
+  isError = false;
 
-  addItem() {
-    if (!this.name.trim() || this.qty < 1) return;
-    const newItem: Item = {
-      id: Date.now(),
+  constructor(public itemService: ItemService) {}
+
+  add() {
+    this.message = '';
+    this.isError = false;
+
+    if (this.id === null || this.id <= 0 || !this.name.trim() || this.qty === null || this.qty < 0) {
+      this.message = '❌ Error: Please fill in all required fields correctly!';
+      this.isError = true;
+      return;
+    }
+
+    if (this.itemService.isIdExists(this.id)) {
+      this.message = '❌ Error: Item ID already exists!';
+      this.isError = true;
+      return;
+    }
+
+    this.itemService.addItem({
+      id: this.id,
       name: this.name.trim(),
       qty: this.qty,
-      status: this.qty > 0 ? 'In Stock' : 'Out of Stock'
-    };
-    this.items.push(newItem);
+      popular: this.popular
+    });
+
+    this.message = '✅ Item added successfully!';
+    this.id = null;
     this.name = '';
-    this.qty = 1;
+    this.qty = null;
+    this.popular = false;
   }
 
-  deleteItem(item: Item) {
-    if (confirm(`Delete ${item.name}?`)) {
-      this.items = this.items.filter(i => i.id !== item.id);
+  delete(id: number) {
+    if (confirm('⚠ Are you sure you want to delete this item?')) {
+      this.itemService.deleteItem(id);
+      this.message = '✅ Item deleted successfully!';
     }
   }
 }
