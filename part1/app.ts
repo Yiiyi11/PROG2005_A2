@@ -1,3 +1,11 @@
+/*
+Author: Shen Jingyi
+Student ID: 24832643
+Unit Code: PROG2005
+Assessment: A2 - Part 1 (TypeScript Inventory System)
+File Function: Implement product addition, data validation and responsive design.
+Date: 2026/4/8
+*/
 import { InventoryService } from './inventory.service.js';
 import type { Item } from './item.interface.js';
 
