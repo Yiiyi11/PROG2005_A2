@@ -1,3 +1,11 @@
+/*
+Author: Shen Jingyi
+Student ID: 24832643
+Unit Code: PROG2005
+Assessment: A2 - Part 2 (Angular Inventory System)
+File Function: Implement product addition, data validation and responsive design with Angular.
+Date: 2026/4/8
+*/
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
